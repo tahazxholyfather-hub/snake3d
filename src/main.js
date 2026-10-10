@@ -27,6 +27,8 @@ const secondary = document.querySelector('#secondary');
 const help = document.querySelector('#help');
 const note = document.querySelector('#note');
 const pad = document.querySelector('#pad');
+const hint = document.querySelector('#hint');
+const legend = document.querySelector('.legend');
 const vignette = document.querySelector('#vignette');
 const fallback = document.querySelector('#fallback');
 
@@ -129,12 +131,15 @@ function paintHud(snap) {
   speedEl.textContent = fmt.format(snap.speed);
   pauseBtn.hidden = snap.mode !== 'playing' && snap.mode !== 'paused';
   pauseBtn.textContent = snap.mode === 'paused' ? 'ادامه' : 'مکث';
-  pad.hidden = snap.mode === 'paused' || snap.mode === 'dead' || snap.mode === 'won';
+  pad.hidden = snap.mode !== 'playing';
+  hint.hidden = !snap.waiting;
+  legend.hidden = snap.mode !== 'playing';
 }
 
 function paintOverlay(snap) {
   const playing = snap.mode === 'playing';
   overlay.hidden = playing;
+  overlay.classList.toggle('sheet', snap.mode === 'menu');
   if (playing) return;
 
   const view = copyFor(snap);

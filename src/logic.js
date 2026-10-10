@@ -1,4 +1,4 @@
-export const SIZE = 10;
+export const SIZE = 12;
 export const BASE_TICK = 260;
 export const MIN_TICK = 100;
 export const TICK_STEP = 6;
@@ -72,11 +72,12 @@ function cloneCell(cell) {
 }
 
 export function createInitialSnake(size = SIZE) {
-  const mid = Math.floor(size / 2);
-  const y = Math.floor(size / 4);
+  const z = Math.floor(size / 2);
+  const y = Math.min(size - 2, Math.max(1, Math.floor(size / 3)));
+  const headX = Math.min(size - 2, START_LENGTH - 1);
   const segments = [];
   for (let i = 0; i < START_LENGTH; i += 1) {
-    segments.push({ x: mid - i, y, z: mid });
+    segments.push({ x: headX - i, y, z });
   }
   return segments;
 }

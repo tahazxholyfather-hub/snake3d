@@ -8,6 +8,7 @@ import {
   createState,
   directionFor,
   enqueue,
+  opposite,
   speedLevel,
   step,
 } from './logic.js';
@@ -57,6 +58,7 @@ class SnakeView {
     this.canvas = canvas;
     this.hooks = hooks;
     this.mode = 'menu';
+    this.armed = false;
     this.reason = null;
     this.time = 0;
     this.acc = 0;
@@ -99,7 +101,7 @@ class SnakeView {
 
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0x07060f);
-    this.scene.fog = new THREE.FogExp2(0x07060f, 0.018);
+    this.scene.fog = new THREE.FogExp2(0x07060f, 0.013);
     this.camera = new THREE.PerspectiveCamera(48, 1, 0.1, 220);
 
     this.size = this.state.size;
@@ -379,6 +381,7 @@ class SnakeView {
       speed: speedLevel(this.state.tickMs),
       height: this.state.segments[0].y + 1,
       reason: this.reason,
+      waiting: this.mode === 'playing' && !this.armed,
     };
   }
 
@@ -393,6 +396,7 @@ class SnakeView {
       return;
     }
     this.mode = 'playing';
+    this.armed = false;
     this.reason = null;
     this.acc = 0;
     this.emit('start');
@@ -407,6 +411,7 @@ class SnakeView {
   restart() {
     this.state = createState();
     this.mode = 'playing';
+    this.armed = false;
     this.reason = null;
     this.acc = 0;
     this.shake = 0;
@@ -432,7 +437,16 @@ class SnakeView {
     if (this.mode === 'paused' || this.mode === 'dead' || this.mode === 'won') return;
     if (this.mode === 'menu') this.start();
     const dir = directionFor(this.yaw, command);
-    if (dir) enqueue(this.state, dir);
+    if (!dir) return;
+    if (!this.armed) {
+      if (opposite(dir, this.state.direction)) return;
+      enqueue(this.state, dir);
+      this.armed = true;
+      this.acc = Math.max(0, this.state.tickMs - 40);
+      this.emit('snapshot');
+      return;
+    }
+    enqueue(this.state, dir);
   }
 
   frame(now) {
@@ -446,7 +460,7 @@ class SnakeView {
   }
 
   update(dt) {
-    if (this.mode === 'playing') {
+    if (this.mode === 'playing' && this.armed) {
       this.acc += dt;
       let guard = 0;
       while (this.acc >= this.state.tickMs && this.mode === 'playing' && guard < 4) {
@@ -637,10 +651,11 @@ class SnakeView {
   }
 
   baseDistance() {
+    const span = this.size * 1.7;
     const aspect = this.camera.aspect || 1;
-    if (aspect < 0.75) return 31;
-    if (aspect < 1.15) return 24;
-    return 18.5;
+    if (aspect < 0.75) return span * 1.5;
+    if (aspect < 1.15) return span * 1.2;
+    return span;
   }
 
   destroy() {

@@ -27,6 +27,8 @@ test('a new game starts inside the cube, moving along +x', () => {
   assert.equal(occupied.has(keyOf(state.food)), false);
   assert.ok(manhattan(state.food, state.segments[0]) >= 3);
   assert.equal(state.tickMs, BASE_TICK);
+  assert.equal(state.segments[0].x, 3);
+  assert.ok(state.size - 1 - state.segments[0].x >= 6);
 });
 
 test('turns are queued and a reverse is rejected', () => {

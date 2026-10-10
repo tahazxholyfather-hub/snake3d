@@ -60,13 +60,15 @@
         </div>
       </header>
 
+      <p id="hint" class="hint" hidden>یک جهت را بزن تا حرکت شروع شود.</p>
+
       <aside class="legend">
-        <p><span>سطح</span> <kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd></p>
-        <p><span>بالا و پایین</span> <kbd>Q</kbd><kbd>E</kbd></p>
-        <p><span>دوربین</span> کشیدن ماوس</p>
+        <p><span>سطح</span> <span class="mini" dir="ltr"><kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd></span></p>
+        <p><span>عمودی</span> <span class="keys" dir="ltr"><kbd>Q</kbd><span>بالا</span><kbd>E</kbd><span>پایین</span></span></p>
+        <p><span>دوربین</span> <span>کشیدن ماوس</span></p>
       </aside>
 
-      <div class="pad" id="pad">
+      <div class="pad" id="pad" hidden>
         <div class="cluster" dir="ltr" aria-label="حرکت روی سطح">
           <button type="button" data-cmd="forward" aria-label="جلو">
             <b aria-hidden="true">↑</b>
@@ -110,11 +112,11 @@
           <ul class="help" id="help">
             <li>
               <span>سطح، نسبت به دوربین</span>
-              <span class="keys"><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd></span>
+              <span class="mini" dir="ltr"><kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd></span>
             </li>
             <li>
-              <span>بالا و پایین</span>
-              <span class="keys"><kbd>Q</kbd><kbd>E</kbd></span>
+              <span>عمودی</span>
+              <span class="keys" dir="ltr"><kbd>Q</kbd><span>بالا</span><kbd>E</kbd><span>پایین</span></span>
             </li>
             <li>
               <span>مکث</span>
@@ -126,7 +128,7 @@
             </li>
           </ul>
           <p class="note" id="note">
-            با کیبورد فارسی هم کار می‌کند؛ ملاک، جایگاه فیزیکی کلید است. حلقه‌ی روی کف، جای افقی مار را نشان می‌دهد.
+            با کیبورد فارسی، جایگاه فیزیکی کلید ملاک است. حلقه‌ی کف، جای افقی مار را نشان می‌دهد.
           </p>
         </div>
       </div>

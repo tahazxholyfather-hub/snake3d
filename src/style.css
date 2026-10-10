@@ -222,12 +222,63 @@ button:focus-visible {
 .legend p {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: flex-start;
+  gap: 10px;
   margin: 0;
+  white-space: nowrap;
 }
 
-.legend span:first-child {
-  min-width: 5.5rem;
+.mini {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1.45rem);
+  grid-template-areas:
+    '. up .'
+    'left down right';
+  direction: ltr;
+  gap: 3px;
+  justify-items: center;
+}
+
+.mini kbd {
+  min-width: 0;
+  width: 1.45rem;
+  padding-inline: 0;
+}
+
+.mini kbd:nth-child(1) { grid-area: up; }
+.mini kbd:nth-child(2) { grid-area: left; }
+.mini kbd:nth-child(3) { grid-area: down; }
+.mini kbd:nth-child(4) { grid-area: right; }
+
+.keys {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  direction: ltr;
+}
+
+.keys span {
+  color: var(--ink);
+  font-size: 0.78rem;
+}
+
+.hint {
+  position: absolute;
+  z-index: 2;
+  top: 84px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(8, 12, 24, 0.72);
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 700;
+  backdrop-filter: blur(12px);
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 kbd {
@@ -322,10 +373,18 @@ kbd {
   overflow: auto;
   padding: 88px 16px 28px;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(7, 6, 15, 0.12), rgba(7, 6, 15, 0.48));
+  background: linear-gradient(180deg, rgba(7, 6, 15, 0.05), rgba(7, 6, 15, 0.42));
+}
+
+.overlay.sheet {
+  align-items: flex-end;
+  padding-bottom: 22px;
+  background: linear-gradient(180deg, transparent 8%, rgba(7, 6, 15, 0.62));
 }
 
 .overlay[hidden],
+.hint[hidden],
+.legend[hidden],
 .pad[hidden],
 #pause[hidden],
 .fallback[hidden],
@@ -444,6 +503,32 @@ h1.win {
 }
 
 @media (max-width: 860px), (pointer: coarse) {
+  .overlay.sheet {
+    align-items: flex-start;
+    padding-top: 112px;
+  }
+
+  .hint {
+    top: 148px;
+    bottom: auto;
+    max-width: calc(100% - 24px);
+  }
+
+  .panel {
+    max-height: 68vh;
+    overflow: auto;
+    padding: 16px 14px 12px;
+  }
+
+  h1 {
+    font-size: 1.85rem;
+  }
+
+  .lede {
+    margin-top: 8px;
+    font-size: 0.9rem;
+  }
+
   .pad {
     display: flex;
   }
