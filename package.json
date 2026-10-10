@@ -1,0 +1,19 @@
+{
+  "name": "snake-3d",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test src/logic.test.js"
+  },
+  "devDependencies": {
+    "vite": "^8.3.0"
+  },
+  "dependencies": {
+    "@fontsource/vazirmatn": "^5.3.0",
+    "three": "^0.186.1"
+  }
+}

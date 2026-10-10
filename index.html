@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#07060f" />
+    <meta
+      name="description"
+      content="مار سه‌بعدی: در یک مکعب نئونی حرکت کن، گوی طلایی را ببلع و به دیوار یا بدنت برخورد نکن."
+    />
+    <title>مار سه‌بعدی</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #07060f;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="view"></canvas>
+      <div class="vignette" id="vignette"></div>
+
+      <header class="hud">
+        <div class="brand">
+          <span class="mark" aria-hidden="true"></span>
+          <div>
+            <strong>مار سه‌بعدی</strong>
+            <small>مکعب نئون</small>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <span>امتیاز</span>
+            <b id="score">۰</b>
+          </div>
+          <div class="stat">
+            <span>رکورد</span>
+            <b id="best">۰</b>
+          </div>
+          <div class="stat">
+            <span>طول</span>
+            <b id="length">۴</b>
+          </div>
+          <div class="stat">
+            <span>ارتفاع</span>
+            <b id="height">۱</b>
+          </div>
+          <div class="stat">
+            <span>سرعت</span>
+            <b id="speed">۱</b>
+          </div>
+        </div>
+        <div class="hud-actions">
+          <button id="sound" class="ghost" type="button" aria-pressed="true">صدا روشن</button>
+          <button id="pause" class="ghost" type="button" hidden>مکث</button>
+        </div>
+      </header>
+
+      <aside class="legend">
+        <p><span>سطح</span> <kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd></p>
+        <p><span>بالا و پایین</span> <kbd>Q</kbd><kbd>E</kbd></p>
+        <p><span>دوربین</span> کشیدن ماوس</p>
+      </aside>
+
+      <div class="pad" id="pad">
+        <div class="cluster" dir="ltr" aria-label="حرکت روی سطح">
+          <button type="button" data-cmd="forward" aria-label="جلو">
+            <b aria-hidden="true">↑</b>
+            <small>جلو</small>
+          </button>
+          <button type="button" data-cmd="left" aria-label="چپ">
+            <b aria-hidden="true">←</b>
+            <small>چپ</small>
+          </button>
+          <button type="button" data-cmd="right" aria-label="راست">
+            <b aria-hidden="true">→</b>
+            <small>راست</small>
+          </button>
+          <button type="button" data-cmd="back" aria-label="عقب">
+            <b aria-hidden="true">↓</b>
+            <small>عقب</small>
+          </button>
+        </div>
+        <div class="vert" aria-label="حرکت عمودی">
+          <button type="button" class="up" data-cmd="up" aria-label="بالا">
+            <b aria-hidden="true">▲</b>
+            <small>بالا</small>
+          </button>
+          <button type="button" class="down" data-cmd="down" aria-label="پایین">
+            <b aria-hidden="true">▼</b>
+            <small>پایین</small>
+          </button>
+        </div>
+      </div>
+
+      <div class="overlay" id="overlay">
+        <div class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="title" tabindex="-1">
+          <p class="eyebrow" id="eyebrow">مکعب نئون</p>
+          <h1 id="title">مار سه‌بعدی</h1>
+          <p class="lede" id="lede"></p>
+          <p class="result" id="result" hidden></p>
+          <div class="actions">
+            <button id="primary" class="primary" type="button">شروع بازی</button>
+            <button id="secondary" class="ghost" type="button" hidden>از نو</button>
+          </div>
+          <ul class="help" id="help">
+            <li>
+              <span>سطح، نسبت به دوربین</span>
+              <span class="keys"><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd></span>
+            </li>
+            <li>
+              <span>بالا و پایین</span>
+              <span class="keys"><kbd>Q</kbd><kbd>E</kbd></span>
+            </li>
+            <li>
+              <span>مکث</span>
+              <span class="keys"><kbd>Space</kbd></span>
+            </li>
+            <li>
+              <span>دوربین</span>
+              <span>کشیدن ماوس، غلتک، دوبار کلیک</span>
+            </li>
+          </ul>
+          <p class="note" id="note">
+            با کیبورد فارسی هم کار می‌کند؛ ملاک، جایگاه فیزیکی کلید است. حلقه‌ی روی کف، جای افقی مار را نشان می‌دهد.
+          </p>
+        </div>
+      </div>
+
+      <p class="fallback" id="fallback" hidden>
+        این مرورگر نتوانست صحنه‌ی سه‌بعدی را بسازد. WebGL را فعال کن و صفحه را تازه کن.
+      </p>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
